@@ -3,12 +3,58 @@
  */
 package org.example;
 
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-    @Test void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+    Stack<Dish> stack;
+    @BeforeEach
+    void init() {
+        stack = new Stack<>();
+    }
+
+    @Test
+    void push1() {
+        Dish dish1 = new Dish("dish 1");
+        stack.push(dish1);
+        assertEquals(dish1, stack.peek());
+    }
+
+    @Test
+    void push2() {
+        Dish dish1 = new Dish("dish 1");
+        Dish dish2 = new Dish("dish 2");
+        stack.push(dish1);
+        stack.push(dish2);
+        assertEquals(dish2, stack.peek());
+    }
+
+    @Test
+    void push2pop1() {
+        Dish dish1 = new Dish("dish 1");
+        Dish dish2 = new Dish("dish 2");
+        stack.push(dish1);
+        stack.push(dish2);
+        stack.pop();
+        assertEquals(dish1, stack.peek());
+    }
+
+    @Test
+    void size() {
+        Dish d = new Dish("Exquisite dish");
+        for(int i = 0; i < 5; ++i) {
+            stack.push(d);
+        }
+        assertEquals(5, stack.size());
+    }
+    @Test
+    void overflow() {
+        Dish d = new Dish("Exquisite dish");
+        for(int i = 0; i < 10; ++i) {
+            stack.push(d);
+        }
+        assertEquals(5, stack.size());
     }
 }
